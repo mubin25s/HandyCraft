@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Discover unique handcrafted items - from jewelry to home decor. Shop authentic handmade products crafted with love.">
+    <title>Handycraft - Authentic Handmade Products</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Header & Navigation -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="logo">
+                    <span class="logo-icon">🎨</span>
+                    <span>Handycraft</span>
+                </a>
+
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html" class="nav-link active">Home</a></li>
+                    <li><a href="shop.html" class="nav-link">Shop</a></li>
+                    <li><a href="category.html" class="nav-link">Categories</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                    <li>
+                        <a href="cart.html" class="cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count" id="cartCount">0</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Crafted with Heart, Made with Care</h1>
+                <p class="hero-subtitle">"Every handmade piece tells a story of passion, tradition, and artistry."</p>
+                <div class="hero-cta">
+                    <a href="shop.html" class="btn btn-primary">Explore Collection</a>
+                    <a href="#featured" class="btn btn-outline">Featured Items</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Preview -->
+    <section class="section">
+        <div class="container">
+            <h2 class="text-center mb-md">Shop by Category</h2>
+            <p class="text-center mb-lg"
+                style="max-width: 600px; margin-left: auto; margin-right: auto; color: var(--gray-dark);">
+                Discover our carefully curated collections of authentic handmade crafts
+            </p>
+
+            <div class="grid grid-4">
+                <a href="products.html?category=jewelry" class="category-card stagger-item">
+                    <div class="category-icon">💎</div>
+                    <h3 class="category-name">Jewelry & Accessories</h3>
+                    <p class="category-count">Bracelets, Earrings, Necklaces</p>
+                </a>
+
+                <a href="products.html?category=homedecor" class="category-card stagger-item">
+                    <div class="category-icon">🏺</div>
+                    <h3 class="category-name">Home Decor</h3>
+                    <p class="category-count">Vases, Cushions, Candle Holders</p>
+                </a>
+
+                <a href="products.html?category=apparel" class="category-card stagger-item">
+                    <div class="category-icon">👗</div>
+                    <h3 class="category-name">Apparel & Textiles</h3>
+                    <p class="category-count">Saris, Kurtis, Handlooms</p>
+                </a>
+
+                <a href="products.html?category=bathbeauty" class="category-card stagger-item">
+                    <div class="category-icon">🧴</div>
+                    <h3 class="category-name">Bath & Beauty</h3>
+                    <p class="category-count">Natural Soaps, Oils, Skincare</p>
+                </a>
+
+                <a href="products.html?category=stationery" class="category-card stagger-item">
+                    <div class="category-icon">📚</div>
+                    <h3 class="category-name">Stationery & Paper</h3>
+                    <p class="category-count">Notebooks, Bookmarks, Cards</p>
+                </a>
+
+                <a href="products.html?category=toys" class="category-card stagger-item">
+                    <div class="category-icon">🧸</div>
+                    <h3 class="category-name">Toys & Games</h3>
+                    <p class="category-count">Wooden Toys, Puzzles</p>
+                </a>
+
+                <a href="products.html?category=art" class="category-card stagger-item">
+                    <div class="category-icon">🎨</div>
+                    <h3 class="category-name">Arts & Collectives</h3>
+                    <p class="category-count">Paintings, Sculptures</p>
+                </a>
+
+                <a href="products.html?category=diy" class="category-card stagger-item">
+                    <div class="category-icon">🛠️</div>
+                    <h3 class="category-name">DIY Supplies</h3>
+                    <p class="category-count">Craft Materials, Kits</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="section section-alt" id="featured">
+        <div class="container">
+            <h2 class="text-center mb-md">Featured Products</h2>
+            <p class="text-center mb-lg"
+                style="max-width: 600px; margin-left: auto; margin-right: auto; color: var(--gray-dark);">
+                Handpicked favorites from our collection
+            </p>
+
+            <div class="grid grid-4" id="featuredProducts">
+                <!-- Products will be loaded dynamically via JavaScript -->
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <p>Loading products...</p>
+                </div>
+            </div>
+
+            <div class="text-center mt-lg">
+                <a href="products.html" class="btn btn-primary">View All Products</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="grid grid-2" style="align-items: center; gap: 3rem;">
+                <div>
+                    <h2 class="mb-md">Craftsmanship Meets Creativity</h2>
+                    <p class="mb-sm">
+                        Welcome to Handycraft, where every item is a masterpiece created by skilled artisans.
+                        We believe in preserving traditional crafts while embracing modern designs.
+                    </p>
+                    <p class="mb-sm">
+                        Our collection features authentic handmade products crafted from natural materials like
+                        bamboo, wood, clay, and organic textiles. Each purchase supports local artisans and
+                        sustainable practices.
+                    </p>
+                    <p class="mb-md" style="font-weight: 600; color: var(--chocolate);">
+                        🌿 Eco-friendly materials<br>
+                        🤝 Fair trade practices<br>
+                        ✨ Unique, one-of-a-kind pieces
+                    </p>
+                    <a href="shop.html" class="btn btn-secondary">Start Shopping</a>
+                </div>
+                <div class="img-zoom-container">
+                    <img src="images/about-crafts.jpg" alt="Handmade crafts" class="img-zoom" id="aboutImage"
+                        style="width: 100%; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="section section-alt">
+        <div class="container">
+            <h2 class="text-center mb-lg">Why Choose Handycraft?</h2>
+
+            <div class="grid grid-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <div style="font-size: 3rem; color: var(--light-brown); margin-bottom: 1rem;">🎁</div>
+                        <h3 class="card-title">Quality Guaranteed</h3>
+                        <p class="card-text">Every product is carefully inspected to ensure the highest quality
+                            standards.</p>
+                    </div>
+                </div>
+
+                <div class="card text-center">
+                    <div class="card-body">
+                        <div style="font-size: 3rem; color: var(--light-brown); margin-bottom: 1rem;">🚚</div>
+                        <h3 class="card-title">Fast Shipping</h3>
+                        <p class="card-text">Quick and secure delivery to your doorstep with tracking information.</p>
+                    </div>
+                </div>
+
+                <div class="card text-center">
+                    <div class="card-body">
+                        <div style="font-size: 3rem; color: var(--light-brown); margin-bottom: 1rem;">💬</div>
+                        <h3 class="card-title">Customer Support</h3>
+                        <p class="card-text">Our dedicated team is here to help you with any questions or concerns.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <div class="container-sm text-center">
+            <h2 class="mb-md">Get in Touch</h2>
+            <p class="mb-lg" style="color: var(--gray-dark);">
+                Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+            </p>
+
+            <div class="grid grid-2" style="text-align: left; max-width: 600px; margin: 0 auto;">
+                <div>
+                    <p style="margin-bottom: 1rem;">
+                        <strong style="color: var(--chocolate);">📧 Email:</strong><br>
+                        info@handycraft.com
+                    </p>
+                    <p style="margin-bottom: 1rem;">
+                        <strong style="color: var(--chocolate);">📞 Phone:</strong><br>
+                        +1 (555) 123-4567
+                    </p>
+                </div>
+                <div>
+                    <p style="margin-bottom: 1rem;">
+                        <strong style="color: var(--chocolate);">📍 Address:</strong><br>
+                        123 Artisan Street<br>
+                        Craft City, CC 12345
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>About Handycraft</h4>
+                    <p>Your destination for unique, handcrafted items made with love by skilled artisans.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <p><a href="index.html">Home</a></p>
+                    <p><a href="shop.html">Shop</a></p>
+                    <p><a href="products.html">Products</a></p>
+                    <p><a href="cart.html">Cart</a></p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Categories</h4>
+                    <p><a href="products.html?category=jewelry">Jewelry</a></p>
+                    <p><a href="products.html?category=homedecor">Home Decor</a></p>
+                    <p><a href="products.html?category=apparel">Apparel</a></p>
+                    <p><a href="products.html?category=stationery">Stationery</a></p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <p><a href="#"><i class="fab fa-facebook"></i> Facebook</a></p>
+                    <p><a href="#"><i class="fab fa-instagram"></i> Instagram</a></p>
+                    <p><a href="#"><i class="fab fa-pinterest"></i> Pinterest</a></p>
+                    <p><a href="#"><i class="fab fa-twitter"></i> Twitter</a></p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 Handycraft. All rights reserved. Made with ❤️ by artisans worldwide.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification Toast -->
+    <div id="notification" style="display: none;"></div>
+
+    <!-- JavaScript -->
+    <script src="js/auth.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

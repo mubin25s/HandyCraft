@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Shopping cart - Review your selected handcrafted items">
+    <title>Shopping Cart - Handycraft</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Header & Navigation -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="logo">
+                    <span class="logo-icon">🎨</span>
+                    <span>Handycraft</span>
+                </a>
+
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="shop.html" class="nav-link">Shop</a></li> <li><a href="category.html" class="nav-link">Categories</a></li>
+                    <li><a href="index.html#about" class="nav-link">About</a></li>
+                    <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+                    <li>
+                        <a href="cart.html" class="cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count" id="cartCount">0</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Back Button -->
+    <div class="container" style="padding-top: 1rem;">
+        <button onclick="window.history.back()" class="btn btn-outline"
+            style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem;">
+            <i class="fas fa-arrow-left"></i> Back
+        </button>
+    </div>
+
+    <!-- Page Header -->
+    <section class="hero" style="padding: 2rem 0;">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title" style="font-size: 3rem;">Shopping Cart</h1>
+                <p class="hero-subtitle">Review your selected items</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Content -->
+    <section class="section">
+        <div class="container">
+            <div class="cart-container" id="cartContainer">
+                <!-- Cart items will be loaded dynamically -->
+            </div>
+
+            <!-- Empty Cart Message -->
+            <div id="emptyCart" style="display: none; text-align: center; padding: 4rem 0;">
+                <div style="font-size: 5rem; margin-bottom: 1rem;">🛒</div>
+                <h2 style="color: var(--chocolate); margin-bottom: 1rem;">Your cart is empty</h2>
+                <p style="color: var(--gray-dark); margin-bottom: 2rem;">
+                    Looks like you haven't added any items to your cart yet.
+                </p>
+                <a href="products.html" class="btn btn-primary">Start Shopping</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Continue Shopping -->
+    <section class="section section-alt" id="continueSection" style="display: none;">
+        <div class="container text-center">
+            <h2 class="mb-md">Continue Shopping</h2>
+            <p class="mb-lg" style="color: var(--gray-dark);">
+                Explore more handcrafted treasures
+            </p>
+            <a href="products.html" class="btn btn-outline">Browse Products</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>About Handycraft</h4>
+                    <p>Your destination for unique, handcrafted items made with love by skilled artisans.</p>
+                </div>
+
+                <div class="footer-section">
+
+
+                    <h4>Quick Links</h4>
+                    <p><a href="index.html">Home</a></p>
+                    <p><a href="shop.html">Shop</a></p>
+                    <p><a href="products.html">Products</a></p>
+                    <p><a href="cart.html">Cart</a></p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Categories</h4>
+                    <p><a href="products.html?category=jewelry">Jewelry</a></p>
+                    <p><a href="products.html?category=homedecor">Home Decor</a></p>
+                    <p><a href="products.html?category=apparel">Apparel</a></p>
+                    <p><a href="products.html?category=stationery">Stationery</a></p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <p><a href="#"><i class="fab fa-facebook"></i> Facebook</a></p>
+                    <p><a href="#"><i class="fab fa-instagram"></i> Instagram</a></p>
+                    <p><a href="#"><i class="fab fa-pinterest"></i> Pinterest</a></p>
+                    <p><a href="#"><i class="fab fa-twitter"></i> Twitter</a></p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 Handycraft. All rights reserved. Made with ❤️ by artisans worldwide.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification Toast -->
+    <div id="notification" style="
+        position: fixed;
+        top: 100px;
+        right: 20px;
+        background: var(--white);
+        padding: 1rem 1.5rem;
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-lg);
+        display: none;
+        z-index: 9999;
+        border-left: 4px solid var(--light-brown);
+    "></div>
+
+    <!-- JavaScript -->
+    <script src="js/auth.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+      
+        window.addEventListener('DOMContentLoaded', () => {
+            displayCart();
+        });
+    </script>
+</body>
+
+</html>

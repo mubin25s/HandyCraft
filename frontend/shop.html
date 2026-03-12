@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Browse our handcraft categories - Jewelry, Home Decor, Apparel, and more.">
+    <title>Shop Categories - Handycraft</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Header & Navigation -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="logo">
+                    <span class="logo-icon">🎨</span>
+                    <span>Handycraft</span>
+                </a>
+
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="shop.html" class="nav-link active">Shop</a></li>
+                    <li><a href="category.html" class="nav-link">Categories</a></li>
+                    <li><a href="index.html#about" class="nav-link">About</a></li>
+                    <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+                    <li>
+                        <a href="cart.html" class="cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count" id="cartCount">0</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Back Button -->
+    <div class="container" style="padding-top: 1rem;">
+        <button onclick="window.history.back()" class="btn btn-outline"
+            style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem;">
+            <i class="fas fa-arrow-left"></i> Back
+        </button>
+    </div>
+
+    <!-- Page Header -->
+    <section class="hero" style="padding: 3rem 0;">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Shop by Category</h1>
+                <p class="hero-subtitle">Explore our diverse collection of handcrafted treasures</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Grid -->
+    <section class="section">
+        <div class="container">
+            <div class="grid grid-3">
+                <!-- Jewelry & Accessories -->
+                <a href="products.html?category=jewelry" class="category-card hover-lift stagger-item">
+                    <div class="category-icon">💎</div>
+                    <h3 class="category-name">Jewelry & Accessories</h3>
+                    <p class="category-count">Beautiful handcrafted pieces</p>
+                    <div style="margin-top: 1rem;">
+                        <p style="font-size: 0.875rem; color: var(--gray-dark); margin-bottom: 0.25rem;">
+                            • Bracelets<br>
+                            • Earrings<br>
+                            • Necklaces<br>
+                            • Rings & Anklets
+                        </p>
+                    </div>
+                </a>
+
+                <!-- Home Decor -->
+                <a href="products.html?category=homedecor" class="category-card hover-lift stagger-item">
+                    <div class="category-icon">🏺</div>
+                    <h3 class="category-name">Home Decor</h3>
+                    <p class="category-count">Transform your living space</p>
+                    <div style="margin-top: 1rem;">
+                        <p style="font-size: 0.875rem; color: var(--gray-dark); margin-bottom: 0.25rem;">
+                            • Vases & Planters<br>
+                            • Cushion Covers<br>
+                            • Candle Holders<br>
+                            • Rugs & Bedsheets
+                        </p>
+                    </div>
+                </a>
+
+                <!-- Apparel & Textiles -->
+                <a href="products.html?category=apparel" class="category-card hover-lift stagger-item">
+                    <div class="category-icon">👗</div>
+                    <h3 class="category-name">Apparel & Textiles</h3>
+                    <p class="category-count">Handwoven with tradition</p>
+                    <div style="margin-top: 1rem;">
+                        <p style="font-size: 0.875rem; color: var(--gray-dark); margin-bottom: 0.25rem;">
+                            • Saris & Kurtis<br>
+                            • Shirts & Dresses<br>
+                            • Bags & Purses<br>
+                            • Hats & Footwear
+                        </p>
+                    </div>
+                </a>
+
+                <!-- Bath & Beauty -->
+                <a href="products.html?category=bathbeauty" class="category-card hover-lift stagger-item">
+                    <div class="category-icon">🧴</div>
+                    <h3 class="category-name">Bath & Beauty</h3>
+                    <p class="category-count">Natural & organic products</p>
+                    <div style="margin-top: 1rem;">
+                        <p style="font-size: 0.875rem; color: var(--gray-dark); margin-bottom: 0.25rem;">
+                            • Handmade Soaps<br>
+                            • Essential Oils<br>
+                            • Natural Skincare<br>
+                            • Bath Accessories
+                        </p>
+                    </div>
+                </a>
+
+                <!-- Stationery & Paper Goods -->
+                <a href="products.html?category=stationery" class="category-card hover-lift stagger-item">
+                    <div class="category-icon">📚</div>
+                    <h3 class="category-name">Stationery & Paper Goods</h3>
+                    <p class="category-count">Write your story</p>
+                    <div style="margin-top: 1rem;">
+                        <p style="font-size: 0.875rem; color: var(--gray-dark); margin-bottom: 0.25rem;">
+                            • Handmade Notebooks<br>
+                            • Bookmarks<br>
+                            • Greeting Cards<br>
+                            • Art Prints
+                        </p>
+                    </div>
+                </a>
+
+                <!-- Toys & Games -->
+                <a href="products.html?category=toys" class="category-card hover-lift stagger-item">
+                    <div class="category-icon">🧸</div>
+                    <h3 class="category-name">Toys & Games</h3>
+                    <p class="category-count">Fun for all ages</p>
+                    <div style="margin-top: 1rem;">
+                        <p style="font-size: 0.875rem; color: var(--gray-dark); margin-bottom: 0.25rem;">
+                            • Wooden Toys<br>
+                            • Puzzles<br>
+                            • Board Games<br>
+                            • Educational Toys
+                        </p>
+                    </div>
+                </a>
+
+                <!-- Arts & Collectives -->
+                <a href="products.html?category=art" class="category-card hover-lift stagger-item">
+                    <div class="category-icon">🎨</div>
+                    <h3 class="category-name">Arts & Collectives</h3>
+                    <p class="category-count">One-of-a-kind artworks</p>
+                    <div style="margin-top: 1rem;">
+                        <p style="font-size: 0.875rem; color: var(--gray-dark); margin-bottom: 0.25rem;">
+                            • Paintings<br>
+                            • Sculptures<br>
+                            • Wall Art<br>
+                            • Handmade Crafts
+                        </p>
+                    </div>
+                </a>
+
+                <!-- DIY Supplies -->
+                <a href="products.html?category=diy" class="category-card hover-lift stagger-item">
+                    <div class="category-icon">🛠️</div>
+                    <h3 class="category-name">DIY Supplies</h3>
+                    <p class="category-count">Create your own masterpiece</p>
+                    <div style="margin-top: 1rem;">
+                        <p style="font-size: 0.875rem; color: var(--gray-dark); margin-bottom: 0.25rem;">
+                            • Craft Kits<br>
+                            • Materials<br>
+                            • Tools<br>
+                            • Instructions
+                        </p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="section section-alt">
+        <div class="container text-center">
+            <h2 class="mb-md">Ready to Start Shopping?</h2>
+            <p class="mb-lg" style="max-width: 600px; margin-left: auto; margin-right: auto; color: var(--gray-dark);">
+                Browse all our products or filter by your favorite category
+            </p>
+            <a href="products.html" class="btn btn-primary">View All Products</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>About Handycraft</h4>
+                    <p>Your destination for unique, handcrafted items made with love by skilled artisans.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <p><a href="index.html">Home</a></p>
+                    <p><a href="shop.html">Shop</a></p>
+                    <p><a href="products.html">Products</a></p>
+                    <p><a href="cart.html">Cart</a></p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Categories</h4>
+                    <p><a href="products.html?category=jewelry">Jewelry</a></p>
+                    <p><a href="products.html?category=homedecor">Home Decor</a></p>
+                    <p><a href="products.html?category=apparel">Apparel</a></p>
+                    <p><a href="products.html?category=stationery">Stationery</a></p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <p><a href="#"><i class="fab fa-facebook"></i> Facebook</a></p>
+                    <p><a href="#"><i class="fab fa-instagram"></i> Instagram</a></p>
+                    <p><a href="#"><i class="fab fa-pinterest"></i> Pinterest</a></p>
+                    <p><a href="#"><i class="fab fa-twitter"></i> Twitter</a></p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 Handycraft. All rights reserved. Made with ❤️ by artisans worldwide.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/auth.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

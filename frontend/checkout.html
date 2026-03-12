@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Complete your order - Handycraft checkout">
+    <title>Checkout - Handycraft</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .checkout-container {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: var(--spacing-lg);
+            align-items: start;
+        }
+
+        .checkout-main {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .checkout-section {
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-lg);
+            border-bottom: 1px solid var(--cream-dark);
+        }
+
+        .checkout-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .checkout-section h3 {
+            color: var(--chocolate);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .payment-methods {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .payment-option {
+            border: 2px solid var(--cream-dark);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .payment-option:hover {
+            border-color: var(--light-brown);
+            background: var(--cream);
+        }
+
+        .payment-option.selected {
+            border-color: var(--light-brown);
+            background: var(--cream);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .payment-radio {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--light-brown);
+        }
+
+        .payment-icon {
+            font-size: 2rem;
+            width: 50px;
+            text-align: center;
+        }
+
+        .payment-details {
+            flex: 1;
+        }
+
+        .payment-name {
+            font-weight: 600;
+            color: var(--chocolate);
+            margin-bottom: 0.25rem;
+        }
+
+        .payment-description {
+            font-size: 0.875rem;
+            color: var(--gray-dark);
+        }
+
+        @media (max-width: 968px) {
+            .checkout-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header & Navigation -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="logo">
+                    <span class="logo-icon">🎨</span>
+                    <span>Handycraft</span>
+                </a>
+
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="shop.html" class="nav-link">Shop</a></li> <li><a href="category.html" class="nav-link">Categories</a></li>
+                    <li><a href="index.html#about" class="nav-link">About</a></li>
+                    <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+                    <li>
+                        <a href="cart.html" class="cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count" id="cartCount">0</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Back Button -->
+    <div class="container" style="padding-top: 1rem;">
+        <button onclick="window.history.back()" class="btn btn-outline"
+            style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem;">
+            <i class="fas fa-arrow-left"></i> Back
+        </button>
+    </div>
+
+    <!-- Page Header -->
+    <section class="hero" style="padding: 2rem 0;">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title" style="font-size: 3rem;">Checkout</h1>
+                <p class="hero-subtitle">Complete your purchase</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checkout Content -->
+    <section class="section">
+        <div class="container">
+            <div class="checkout-container">
+                <!-- Main Checkout Form -->
+                <div class="checkout-main">
+                    <!-- Shipping Information -->
+                    <div class="checkout-section">
+                        <h3><i class="fas fa-shipping-fast"></i> Shipping Information</h3>
+                        <form id="shippingForm">
+                            <div class="grid grid-2" style="gap: 1rem;">
+                                <div class="form-group">
+                                    <label class="form-label">First Name *</label>
+                                    <input type="text" class="form-input" id="shippingFirstName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Last Name *</label>
+                                    <input type="text" class="form-input" id="shippingLastName" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email Address *</label>
+                                <input type="email" class="form-input" id="shippingEmail" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Phone Number *</label>
+                                <input type="tel" class="form-input" id="shippingPhone" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Address *</label>
+                                <input type="text" class="form-input" id="shippingAddress" required>
+                            </div>
+                            <div class="grid grid-3" style="gap: 1rem;">
+                                <div class="form-group">
+                                    <label class="form-label">City *</label>
+                                    <input type="text" class="form-input" id="shippingCity" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">State *</label>
+                                    <input type="text" class="form-input" id="shippingState" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">ZIP Code *</label>
+                                    <input type="text" class="form-input" id="shippingZip" required>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Payment Method -->
+                    <div class="checkout-section">
+                        <h3><i class="fas fa-credit-card"></i> Payment Method</h3>
+                        <div class="payment-methods">
+                            <label class="payment-option" onclick="selectPayment('paypal')">
+                                <input type="radio" name="payment" value="paypal" class="payment-radio">
+                                <div class="payment-icon" style="color: #003087;">
+                                    <i class="fab fa-paypal"></i>
+                                </div>
+                                <div class="payment-details">
+                                    <div class="payment-name">PayPal</div>
+                                    <div class="payment-description">Pay securely with PayPal</div>
+                                </div>
+                            </label>
+
+                            <label class="payment-option" onclick="selectPayment('cod')">
+                                <input type="radio" name="payment" value="cod" class="payment-radio">
+                                <div class="payment-icon" style="color: var(--light-brown);">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </div>
+                                <div class="payment-details">
+                                    <div class="payment-name">Cash on Delivery</div>
+                                    <div class="payment-description">Pay when you receive your order</div>
+                                </div>
+                            </label>
+
+                            <label class="payment-option" onclick="selectPayment('mastercard')">
+                                <input type="radio" name="payment" value="mastercard" class="payment-radio">
+                                <div class="payment-icon" style="color: #EB001B;">
+                                    <i class="fab fa-cc-mastercard"></i>
+                                </div>
+                                <div class="payment-details">
+                                    <div class="payment-name">MasterCard</div>
+                                    <div class="payment-description">Pay with MasterCard credit/debit card</div>
+                                </div>
+                            </label>
+
+                            <label class="payment-option" onclick="selectPayment('visa')">
+                                <input type="radio" name="payment" value="visa" class="payment-radio">
+                                <div class="payment-icon" style="color: #1A1F71;">
+                                    <i class="fab fa-cc-visa"></i>
+                                </div>
+                                <div class="payment-details">
+                                    <div class="payment-name">Visa Card</div>
+                                    <div class="payment-description">Pay with Visa credit/debit card</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Card Details (shown when Visa or MasterCard selected) -->
+                    <div class="checkout-section" id="cardDetails" style="display: none;">
+                        <h3><i class="fas fa-credit-card"></i> Card Details</h3>
+                        <div class="form-group">
+                            <label class="form-label">Card Number *</label>
+                            <input type="text" class="form-input" id="cardNumber" placeholder="1234 5678 9012 3456"
+                                maxlength="19">
+                        </div>
+                        <div class="grid grid-2" style="gap: 1rem;">
+                            <div class="form-group">
+                                <label class="form-label">Expiry Date *</label>
+                                <input type="text" class="form-input" id="cardExpiry" placeholder="MM/YY">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">CVV *</label>
+                                <input type="text" class="form-input" id="cardCvv" placeholder="123" maxlength="3">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Cardholder Name *</label>
+                            <input type="text" class="form-input" id="cardName" placeholder="John Doe">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order Summary -->
+                <div>
+                    <div class="cart-summary" style="position: sticky; top: 100px;">
+                        <h3 style="color: var(--chocolate); margin-bottom: 1.5rem;">Order Summary</h3>
+
+                        <div id="checkoutItems" style="margin-bottom: 1.5rem;">
+                            <!-- Items will be loaded here -->
+                        </div>
+
+                        <div id="checkoutTotals">
+                            <!-- Totals will be loaded here -->
+                        </div>
+
+                        <button class="btn btn-primary checkout-btn" onclick="placeOrder()">
+                            <i class="fas fa-check"></i> Place Order
+                        </button>
+
+                        <a href="products.html" class="btn btn-outline"
+                            style="width: 100%; margin-top: 1rem; text-align: center;">
+                            <i class="fas fa-shopping-bag"></i> Continue Shopping
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>About Handycraft</h4>
+                    <p>Your destination for unique, handcrafted items made with love by skilled artisans.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <p><a href="index.html">Home</a></p>
+                    <p><a href="shop.html">Shop</a></p>
+                    <p><a href="products.html">Products</a></p>
+                    <p><a href="cart.html">Cart</a></p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Categories</h4>
+                    <p><a href="products.html?category=jewelry">Jewelry</a></p>
+                    <p><a href="products.html?category=homedecor">Home Decor</a></p>
+                    <p><a href="products.html?category=apparel">Apparel</a></p>
+                    <p><a href="products.html?category=stationery">Stationery</a></p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <p><a href="#"><i class="fab fa-facebook"></i> Facebook</a></p>
+                    <p><a href="#"><i class="fab fa-instagram"></i> Instagram</a></p>
+                    <p><a href="#"><i class="fab fa-pinterest"></i> Pinterest</a></p>
+                    <p><a href="#"><i class="fab fa-twitter"></i> Twitter</a></p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 Handycraft. All rights reserved. Made with ❤️ by artisans worldwide.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/auth.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+        let selectedPaymentMethod = '';
+
+        // Select payment method
+        function selectPayment(method) {
+            selectedPaymentMethod = method;
+
+            // Update visual selection
+            document.querySelectorAll('.payment-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+
+            // Show/hide card details
+            const cardDetails = document.getElementById('cardDetails');
+            if (method === 'visa' || method === 'mastercard') {
+                cardDetails.style.display = 'block';
+            } else {
+                cardDetails.style.display = 'none';
+            }
+        }
+
+        // Load checkout items
+        function loadCheckoutItems() {
+            const cart = JSON.parse(localStorage.getItem('handycraft_cart')) || [];
+            const itemsEl = document.getElementById('checkoutItems');
+            const totalsEl = document.getElementById('checkoutTotals');
+
+            if (cart.length === 0) {
+                window.location.href = 'cart.html';
+                return;
+            }
+
+            // Display items
+            itemsEl.innerHTML = cart.map(item => `
+                <div style="display: flex; gap: 0.75rem; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--cream-dark);">
+                   <img src="${item.image}" alt="${item.name}" style="width: 60px; height: 60px; object-fit: cover; border-radius: var(--radius-sm);" onerror="this.src='images/placeholder.jpg'">
+                    <div style="flex: 1;">
+                        <p style="font-weight: 600; color: var(--chocolate); font-size: 0.875rem; margin-bottom: 0.25rem;">${item.name}</p>
+                        <p style="color: var(--gray-dark); font-size: 0.75rem;">Qty: ${item.quantity}</p>
+                    </div>
+                    <p style="font-weight: 600; color: var(--light-brown);">$${(item.price * item.quantity).toFixed(2)}</p>
+                </div>
+            `).join('');
+
+            // Calculate and display totals
+            const totals = calculateCartTotals();
+            totalsEl.innerHTML = `
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span>$${totals.subtotal.toFixed(2)}</span>
+                </div>
+                <div class="summary-row">
+                    <span>Tax (10%):</span>
+                    <span>$${totals.tax.toFixed(2)}</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping:</span>
+                    <span>${totals.shipping === 0 ? 'FREE' : '$' + totals.shipping.toFixed(2)}</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total:</span>
+                    <span>$${totals.total.toFixed(2)}</span>
+                </div>
+            `;
+
+            // Prefill user data if logged in
+            const user = getCurrentUser();
+            if (user) {
+                document.getElementById('shippingFirstName').value = user.firstName || '';
+                document.getElementById('shippingLastName').value = user.lastName || '';
+                document.getElementById('shippingEmail').value = user.email || '';
+            }
+        }
+
+        // Place order
+        async function placeOrder() {
+            // Validate form
+            const form = document.getElementById('shippingForm');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            if (!selectedPaymentMethod) {
+                showNotification('Please select a payment method', 'error');
+                return;
+            }
+
+            // If card payment, validate card details
+            if (selectedPaymentMethod === 'visa' || selectedPaymentMethod === 'mastercard') {
+                const cardNumber = document.getElementById('cardNumber').value;
+                const cardExpiry = document.getElementById('cardExpiry').value;
+                const cardCvv = document.getElementById('cardCvv').value;
+                const cardName = document.getElementById('cardName').value;
+
+                if (!cardNumber || !cardExpiry || !cardCvv || !cardName) {
+                    showNotification('Please fill in all card details', 'error');
+                    return;
+                }
+            }
+
+            const totals = calculateCartTotals();
+            const user = getCurrentUser() || {};
+            const cart = JSON.parse(localStorage.getItem('handycraft_cart')) || [];
+
+            const orderData = {
+                items: cart,
+                userId: user.id || null, // If logged in
+                firstName: document.getElementById('shippingFirstName').value,
+                lastName: document.getElementById('shippingLastName').value,
+                email: document.getElementById('shippingEmail').value,
+                phone: document.getElementById('shippingPhone').value,
+                address: document.getElementById('shippingAddress').value,
+                city: document.getElementById('shippingCity').value,
+                state: document.getElementById('shippingState').value,
+                zip: document.getElementById('shippingZip').value,
+                paymentMethod: selectedPaymentMethod,
+                total: totals.total
+            };
+
+            try {
+                const response = await fetch('../backend/api/orders/create.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(orderData)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                     // Clear cart
+                     localStorage.removeItem('handycraft_cart');
+                     updateCartCount();
+                     if (window.displayCart) displayCart(); // Update cart display if on cart page (unlikely here but good practice)
+
+                     // Show success message
+                     const paymentName = {
+                         'paypal': 'PayPal',
+                         'cod': 'Cash on Delivery',
+                         'mastercard': 'MasterCard',
+                         'visa': 'Visa'
+                     }[selectedPaymentMethod];
+
+                     showNotification(`Order placed successfully! ID: ${result.orderId}`, 'success');
+
+                     setTimeout(() => {
+                         window.location.href = 'index.html';
+                     }, 3000);
+                } else {
+                    showNotification(result.message || 'Order failed to place.', 'error');
+                }
+
+            } catch (error) {
+                console.error('Order error:', error);
+                showNotification('Network error. Please try again.', 'error');
+            }
+        }
+
+        // Load on page load
+        window.addEventListener('DOM ContentLoaded', loadCheckoutItems);
+    </script>
+</body>
+
+</html>

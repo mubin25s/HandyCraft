@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handycraft Image Manager</title>
+    <!-- Use local css if available, or inline styles for standalone -->
+    <style>
+        :root {
+            --primary: #8B6F47;
+            --secondary: #5D4E37;
+            --light: #fef8f0;
+            --white: #ffffff;
+            --success: #28a745;
+            --error: #dc3545;
+            --gray: #6c757d;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .title h1 {
+            margin: 0;
+            color: var(--secondary);
+            font-size: 1.8rem;
+        }
+
+        .title p {
+            margin: 5px 0 0;
+            color: var(--gray);
+        }
+
+        .search-box {
+            position: relative;
+            width: 300px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary);
+        }
+
+        .stats-bar {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            flex: 1;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--primary);
+        }
+
+        .stat-val {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--secondary);
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .card-header {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            background: var(--light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pid {
+            font-weight: bold;
+            color: var(--primary);
+            font-family: monospace;
+        }
+
+        .category-badge {
+            background: rgba(139, 111, 71, 0.1);
+            color: var(--primary);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+
+        .card-body {
+            padding: 20px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .img-preview {
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            background: #eee;
+            object-fit: cover;
+            border: 2px solid #eee;
+        }
+
+        .img-preview.found {
+            border-color: var(--success);
+        }
+
+        .img-preview.missing {
+            border-color: var(--error);
+            position: relative;
+        }
+
+        .info {
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .p-name {
+            margin: 0 0 10px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .filename-box {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #555;
+            border: 1px dashed #ccc;
+            margin-top: 10px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .filename-box:hover {
+            background: #e9ecef;
+            border-color: var(--primary);
+        }
+
+        .filename-box::after {
+            content: "Click to Copy Name";
+            position: absolute;
+            top: -25px;
+            right: 0;
+            background: #333;
+            color: white;
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+            opacity: 0;
+            transition: opacity 0.2s;
+            pointer-events: none;
+        }
+
+        .filename-box:hover::after {
+            opacity: 1;
+        }
+
+        .status-badge {
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-missing {
+            color: var(--error);
+        }
+
+        .status-found {
+            color: var(--success);
+        }
+
+        .instructions {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+
+        .instructions h3 {
+            margin-top: 0;
+            color: #856404;
+        }
+
+        .instructions ol {
+            margin: 0;
+            padding-left: 20px;
+            color: #856404;
+        }
+
+        .instructions li {
+            margin-bottom: 5px;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #333;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="header">
+            <div class="title">
+                <h1>Image Manager</h1>
+                <p>Manage product images for your Handycraft Shop</p>
+            </div>
+            <div class="search-box">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search products...">
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h3>🚀 How to Add Images to Your Shop</h3>
+            <ol>
+                <li>Find your product in the list below.</li>
+                <li>Click the <strong>filename box</strong> to copy the required image name (e.g.,
+                    <code>jewelry-bracelet-1.jpg</code>).</li>
+                <li>Rename your photo to this exact name.</li>
+                <li>Move the renamed photo to the <strong><code>d:\Handycraft_Web\frontend\images\</code></strong>
+                    folder.</li>
+                <li>Refresh this page to see the green "Found" status!</li>
+            </ol>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-card">
+                <div class="stat-val" id="totalCount">0</div>
+                <div class="stat-label">Total Products</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val" id="foundCount" style="color: var(--success)">0</div>
+                <div class="stat-label">Images Found</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val" id="missingCount" style="color: var(--error)">0</div>
+                <div class="stat-label">Images Missing</div>
+            </div>
+        </div>
+
+        <div class="image-grid" id="productGrid">
+            <!-- Products generated here -->
+        </div>
+    </div>
+
+    <div id="toast" class="toast">Filename copied!</div>
+
+    <!-- Load Product Data -->
+    <script src="js/products.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const grid = document.getElementById('productGrid');
+            const searchInput = document.getElementById('searchInput');
+            const totalCountEl = document.getElementById('totalCount');
+            const foundCountEl = document.getElementById('foundCount');
+            const missingCountEl = document.getElementById('missingCount');
+
+            let foundImages = 0;
+            let missingImages = 0;
+
+            // Render products
+            function renderProducts(products) {
+                grid.innerHTML = '';
+                foundImages = 0;
+                missingImages = 0;
+
+                products.forEach(p => {
+                    const card = document.createElement('div');
+                    card.className = 'product-card';
+
+                    // Check if image exists (basic check via onerror in img tag)
+                    // We'll increment counters asynchronously or just init with placeholders
+
+                    // Get strictly the filename from the path
+                    const filename = p.image.split('/').pop();
+
+                    card.innerHTML = `
+                    <div class="card-header">
+                        <span class="pid">${p.id}</span>
+                        <span class="category-badge">${p.category}</span>
+                    </div>
+                    <div class="card-body">
+                        <img src="${p.image}" class="img-preview" onerror="this.classList.add('missing'); this.src='images/placeholder.jpg'; markMissing('${p.id}')" onload="markFound('${p.id}')">
+                        <div class="info">
+                            <h3 class="p-name" title="${p.name}">${p.name}</h3>
+                            <div class="filename-box" onclick="copyToClipboard('${filename}')" title="Click to copy">
+                                ${filename} <i class="far fa-copy" style="float: right;"></i>
+                            </div>
+                            <div id="status-${p.id}" class="status-badge status-missing">Checking...</div>
+                        </div>
+                    </div>
+                `;
+                    grid.appendChild(card);
+                });
+
+                updateStats(products.length);
+            }
+
+            // Global search
+            searchInput.addEventListener('input', (e) => {
+                const term = e.target.value.toLowerCase();
+                const filtered = productsDatabase.filter(p =>
+                    p.name.toLowerCase().includes(term) ||
+                    p.id.toLowerCase().includes(term) ||
+                    p.category.toLowerCase().includes(term)
+                );
+                renderProducts(filtered);
+            });
+
+            // Initialize
+            renderProducts(productsDatabase);
+        });
+
+        // Helper functions
+        function markFound(id) {
+            const el = document.getElementById(`status-${id}`);
+            if (el) {
+                el.textContent = '✓ Found';
+                el.className = 'status-badge status-found';
+                el.previousElementSibling.previousElementSibling.classList.add('found');
+            }
+            updateStatsCount();
+        }
+
+        function markMissing(id) {
+            const el = document.getElementById(`status-${id}`);
+            if (el) {
+                el.textContent = '✗ Missing';
+                el.className = 'status-badge status-missing';
+            }
+            updateStatsCount();
+        }
+
+        function updateStats(total) {
+            document.getElementById('totalCount').textContent = total;
+        }
+
+        function updateStatsCount() {
+            const found = document.querySelectorAll('.status-found').length;
+            const total = document.querySelectorAll('.product-card').length;
+            document.getElementById('foundCount').textContent = found;
+            document.getElementById('missingCount').textContent = total - found;
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast(`Copied: ${text}`);
+            });
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+    </script>
+</body>
+
+</html>
