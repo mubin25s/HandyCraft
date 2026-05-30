@@ -1,0 +1,23 @@
+---
+# 🤖 Dependabot Configuration
+# Automatically opens PRs when dependencies/actions are outdated
+
+version: 2
+
+updates:
+  # ── GitHub Actions ─────────────────────────────────────────────────────────
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Dhaka"
+    labels:
+      - "⚙️ ci/cd"
+      - "🤖 dependabot"
+    commit-message:
+      prefix: "chore(actions)"
+    reviewers: []
+    assignees: []
+    open-pull-requests-limit: 5

@@ -1,0 +1,70 @@
+# .github/labeler.yml
+# Auto-labels PRs based on which files changed
+
+# ── Area Labels ──────────────────────────────────────────────────────────────
+
+"🎨 frontend":
+  - changed-files:
+    - any-glob-to-any-file:
+      - "frontend/**"
+
+"🐘 backend":
+  - changed-files:
+    - any-glob-to-any-file:
+      - "backend/**"
+
+"🗃️ database":
+  - changed-files:
+    - any-glob-to-any-file:
+      - "backend/**/*.sql"
+      - "**/*.sql"
+
+"🎯 css":
+  - changed-files:
+    - any-glob-to-any-file:
+      - "frontend/css/**"
+      - "**/*.css"
+
+"⚡ javascript":
+  - changed-files:
+    - any-glob-to-any-file:
+      - "frontend/js/**"
+      - "**/*.js"
+
+"🌐 html":
+  - changed-files:
+    - any-glob-to-any-file:
+      - "frontend/**/*.html"
+      - "**/*.html"
+
+"📖 documentation":
+  - changed-files:
+    - any-glob-to-any-file:
+      - "*.md"
+      - "**/*.md"
+      - "DOCUMENTATION.md"
+      - "README.md"
+
+"⚙️ ci/cd":
+  - changed-files:
+    - any-glob-to-any-file:
+      - ".github/**"
+
+"🔐 security":
+  - changed-files:
+    - any-glob-to-any-file:
+      - "backend/config/**"
+      - "**/*auth*"
+      - "**/*Auth*"
+      - "**/*login*"
+
+"🖼️ assets":
+  - changed-files:
+    - any-glob-to-any-file:
+      - "frontend/images/**"
+      - "**/*.png"
+      - "**/*.jpg"
+      - "**/*.jpeg"
+      - "**/*.svg"
+      - "**/*.webp"
+      - "**/*.ico"

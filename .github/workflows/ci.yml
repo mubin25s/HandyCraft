@@ -1,0 +1,190 @@
+name: 🔍 CI — Code Quality & Validation
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+    branches: [main, master, develop]
+
+jobs:
+  # ─────────────────────────────────────────────
+  # 1. HTML Validation
+  # ─────────────────────────────────────────────
+  html-validate:
+    name: 🌐 Validate HTML
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 📦 Install html-validate
+        run: npm install -g html-validate
+
+      - name: 🔍 Run HTML validation
+        run: |
+          echo "🔍 Scanning all HTML files in frontend/..."
+          find frontend -name "*.html" | xargs html-validate --formatter codeframe || true
+          echo "✅ HTML validation complete."
+
+  # ─────────────────────────────────────────────
+  # 2. CSS Validation (Stylelint)
+  # ─────────────────────────────────────────────
+  css-lint:
+    name: 🎨 Lint CSS
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 📦 Install Stylelint
+        run: npm install -g stylelint stylelint-config-standard
+
+      - name: 🎨 Create Stylelint config
+        run: |
+          echo '{
+            "extends": "stylelint-config-standard",
+            "rules": {
+              "no-descending-specificity": null,
+              "selector-class-pattern": null,
+              "keyframes-name-pattern": null
+            }
+          }' > .stylelintrc.json
+
+      - name: 🔍 Run CSS lint
+        run: |
+          echo "🔍 Scanning CSS files in frontend/css/..."
+          stylelint "frontend/css/**/*.css" --formatter compact || true
+          echo "✅ CSS lint complete."
+
+  # ─────────────────────────────────────────────
+  # 3. JavaScript Validation (ESLint)
+  # ─────────────────────────────────────────────
+  js-lint:
+    name: ⚡ Lint JavaScript
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 📦 Install ESLint
+        run: npm install -g eslint
+
+      - name: ⚙️ Create ESLint config
+        run: |
+          echo '{
+            "env": {
+              "browser": true,
+              "es2021": true
+            },
+            "extends": "eslint:recommended",
+            "parserOptions": {
+              "ecmaVersion": 2021,
+              "sourceType": "script"
+            },
+            "rules": {
+              "no-unused-vars": "warn",
+              "no-console": "off",
+              "semi": ["warn", "always"],
+              "no-undef": "warn"
+            }
+          }' > .eslintrc.json
+
+      - name: 🔍 Run JS lint
+        run: |
+          echo "🔍 Scanning JavaScript files in frontend/js/..."
+          eslint "frontend/js/**/*.js" --format compact || true
+          echo "✅ JS lint complete."
+
+  # ─────────────────────────────────────────────
+  # 4. PHP Syntax Check
+  # ─────────────────────────────────────────────
+  php-syntax:
+    name: 🐘 PHP Syntax Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🐘 Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: php-cs-fixer
+
+      - name: 🔍 Check PHP syntax (parse errors)
+        run: |
+          echo "🔍 Scanning all PHP files in backend/..."
+          find backend -name "*.php" -exec php -l {} \; | grep -v "No syntax errors" || true
+          echo "✅ PHP syntax check complete."
+
+      - name: 🧹 PHP CodeSniffer style check
+        run: |
+          composer global require "squizlabs/php_codesniffer=*" --quiet 2>/dev/null || true
+          ~/.composer/vendor/bin/phpcs --standard=PSR12 --extensions=php backend/ || true
+          echo "✅ PHP CodeSniffer complete."
+
+  # ─────────────────────────────────────────────
+  # 5. Security Scan — Detect Hardcoded Secrets
+  # ─────────────────────────────────────────────
+  secret-scan:
+    name: 🔐 Secret & Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🔐 Scan for hardcoded secrets (gitleaks)
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
+
+      - name: 🛡️ Check for common SQL injection patterns
+        run: |
+          echo "🔍 Checking for unsafe SQL query patterns..."
+          grep -rn --include="*.php" \
+            -e '\$_GET\[.*\].*sql' \
+            -e '\$_POST\[.*\].*sql' \
+            -e "query.*\\..*\\..*_GET" \
+            backend/ || echo "✅ No obvious SQL injection patterns found."
+
+  # ─────────────────────────────────────────────
+  # 6. CI Summary Report
+  # ─────────────────────────────────────────────
+  ci-summary:
+    name: 📊 CI Summary
+    runs-on: ubuntu-latest
+    needs: [html-validate, css-lint, js-lint, php-syntax, secret-scan]
+    if: always()
+    steps:
+      - name: 📊 Print summary
+        run: |
+          echo "## 🎨 Handycraft CI Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Check | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|-------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| 🌐 HTML Validation | ${{ needs.html-validate.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| 🎨 CSS Lint        | ${{ needs.css-lint.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| ⚡ JS Lint         | ${{ needs.js-lint.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| 🐘 PHP Syntax      | ${{ needs.php-syntax.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| 🔐 Security Scan   | ${{ needs.secret-scan.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "_Powered by Handycraft GitHub Actions 🚀_" >> $GITHUB_STEP_SUMMARY

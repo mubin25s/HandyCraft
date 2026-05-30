@@ -1,0 +1,58 @@
+name: 👋 Welcome New Contributors
+
+on:
+  issues:
+    types: [opened]
+  pull_request_target:
+    types: [opened]
+
+jobs:
+  welcome:
+    name: 👋 Greet First-Time Contributors
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+
+    steps:
+      - name: 👋 Post welcome message
+        uses: actions/first-interaction@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+          issue-message: |
+            ## 👋 Welcome to Handycraft!
+
+            Thank you for opening your first issue, **@${{ github.actor }}**! 🎨
+
+            We appreciate you taking the time to help improve Handycraft. Here's what happens next:
+
+            - 🔍 A maintainer will review your issue shortly
+            - 🏷️ We'll add appropriate labels to categorize it
+            - 💬 Feel free to add more details or screenshots if needed
+
+            ### Useful Resources
+            - 📖 [Read the Documentation](../blob/main/DOCUMENTATION.md)
+            - 🚀 [Setup Guide](../blob/main/README.md#%EF%B8%8F-development-setup)
+
+            Happy crafting! ✨
+
+          pr-message: |
+            ## 🚀 Thank You for Your First PR!
+
+            Welcome, **@${{ github.actor }}**! We're thrilled to see your first pull request to **Handycraft**! 🎉
+
+            Here's what to expect:
+
+            - ✅ Our **CI pipeline** will automatically run checks on your code
+            - 🏷️ Labels will be applied based on your changes
+            - 👀 A maintainer will review your PR soon
+
+            ### PR Checklist
+            Please make sure your PR:
+            - [ ] Has a clear title and description
+            - [ ] Passes all CI checks (HTML/CSS/JS/PHP validation)
+            - [ ] Doesn't break existing functionality
+            - [ ] References a related issue (if applicable)
+
+            Thank you for contributing to Handycraft! 🌍❤️
