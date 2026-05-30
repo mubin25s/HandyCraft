@@ -1,0 +1,59 @@
+name: 🚀 Feature Request
+description: Suggest an idea or new feature for Handycraft
+title: "[FEATURE] "
+labels: ["🚀 enhancement", "💡 idea"]
+assignees: []
+body:
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: 🚀 Feature Description
+      description: A clear and concise description of what you'd like to see added.
+      placeholder: Describe the feature and expected behavior.
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: 💡 Motivation
+      description: Why is this feature needed? What problem does it solve?
+      placeholder: Explain the user pain point or business need.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: 🎯 Proposed Solution
+      description: Describe the solution you'd like.
+      placeholder: Share your proposed implementation or behavior.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 🔄 Alternatives Considered
+      description: Describe any alternative solutions or features you've considered.
+      placeholder: Optional alternatives you evaluated.
+    validations:
+      required: false
+
+  - type: textarea
+    id: mockups
+    attributes:
+      label: 📸 Mockups / References
+      description: Add any mockups, wireframes, or links to similar features elsewhere.
+      placeholder: Optional screenshots, links, or references.
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: 📝 Additional Context
+      description: Any other context or screenshots about the feature request.
+      placeholder: Optional extra context.
+    validations:
+      required: false
